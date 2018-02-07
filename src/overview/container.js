@@ -83,7 +83,7 @@ class OverviewContainer extends Component {
         }
     }
 
-    renderTags = ({ shouldDisplayTagPopup, url, tags }, index) =>
+    renderTagsManager = ({ shouldDisplayTagPopup, url, tags }, index) =>
         shouldDisplayTagPopup ? (
             <IndexDropdown
                 url={url}
@@ -91,37 +91,32 @@ class OverviewContainer extends Component {
                 onFilterDel={this.props.delTag(index)}
                 setTagDivRef={this.setTagDivRef}
                 initFilters={tags}
-                overview
+                source="tag"
+                hover
             />
         ) : null
 
-    renderTagsFilter = () => {
-        const { shouldDisplayTagFilterPopup } = this.props
-
-        return shouldDisplayTagFilterPopup ? (
+    renderTagsFilter = () =>
+        this.props.shouldDisplayTagFilterPopup ? (
             <IndexDropdown
-                tag
                 setTagDivRef={this.setTagDivRef}
                 onFilterAdd={this.props.addTagFilter}
                 onFilterDel={this.props.delTagFilter}
                 initFilters={this.props.filterTags}
+                source="tag"
             />
         ) : null
-    }
 
-    renderDomainsFilter = () => {
-        const { shouldDisplayDomainFilterPopup } = this.props
-
-        return shouldDisplayDomainFilterPopup ? (
+    renderDomainsFilter = () =>
+        this.props.shouldDisplayDomainFilterPopup ? (
             <IndexDropdown
-                domain
                 setTagDivRef={this.setTagDivRef}
                 onFilterAdd={this.props.addDomainFilter}
                 onFilterDel={this.props.delDomainFilter}
                 initFilters={this.props.filterDomains}
+                source="domain"
             />
         ) : null
-    }
 
     renderTagPills({ tagPillsData, tags }, resultIndex) {
         const pills = tagPillsData.map((tag, i) => (
@@ -187,7 +182,7 @@ class OverviewContainer extends Component {
                 key={i}
                 onTrashBtnClick={this.props.handleTrashBtnClick(doc, i)}
                 onToggleBookmarkClick={this.props.handleToggleBm(doc, i)}
-                tagManager={this.renderTags(doc, i)}
+                tagManager={this.renderTagsManager(doc, i)}
                 setTagButtonRef={this.setTagButtonRef}
                 onTagBtnClick={this.props.handleTagBtnClick(i)}
                 tagPills={this.renderTagPills(doc, i)}

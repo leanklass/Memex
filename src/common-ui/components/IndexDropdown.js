@@ -13,16 +13,26 @@ class IndexDropdown extends PureComponent {
         setTagDivRef: PropTypes.func,
         setInputRef: PropTypes.func.isRequired,
         tagSearchValue: PropTypes.string.isRequired,
-        overview: PropTypes.bool,
-        tag: PropTypes.bool,
-        domain: PropTypes.bool,
+        hover: PropTypes.bool,
+        source: PropTypes.oneOf(['tag', 'domain']).isRequired,
+        url: PropTypes.bool,
     }
 
     get mainClass() {
         return cx(styles.tagDiv, {
-            [styles.tagDivFromOverview]: this.props.overview,
-            [styles.tagDivForFilter]: this.props.tag || this.props.domain,
+            [styles.tagDivFromOverview]: this.props.hover,
+            [styles.tagDivForFilter]: !this.props.url,
         })
+    }
+
+    get searchPlaceholder() {
+        return `Search & Add ${this.props.source === 'domain'
+            ? 'Domains'
+            : 'Tags'}`
+    }
+
+    get unit() {
+        return this.props.source === 'domain' ? 'domains' : 'tags'
     }
 
     render() {
@@ -32,11 +42,7 @@ class IndexDropdown extends PureComponent {
                     <input
                         className={styles.search}
                         name="query"
-                        placeholder={
-                            'Search & Add ' +
-                            (this.props.domain ? 'Domains' : 'Tags') +
-                            '(s)'
-                        }
+                        placeholder={this.searchPlaceholder}
                         onChange={this.props.onTagSearchChange}
                         onKeyDown={this.props.onTagSearchKeyDown}
                         ref={this.props.setInputRef}
@@ -52,7 +58,7 @@ class IndexDropdown extends PureComponent {
                         <span className={styles.bold}>
                             {this.props.numberOfTags}
                         </span>{' '}
-                        {this.props.domain ? 'domains' : 'tags'} selected
+                        {this.unit} selected
                     </div>
                 </div>
             </div>
