@@ -7,7 +7,7 @@ import reduce from 'lodash/fp/reduce'
 
 import analytics from 'src/analytics'
 import { Wrapper, LoadingIndicator } from 'src/common-ui/components'
-import { TagsContainer } from 'src/common-ui/containers'
+import { IndexDropdown } from 'src/common-ui/containers'
 import * as actions from './actions'
 import * as selectors from './selectors'
 import * as constants from './constants'
@@ -85,7 +85,7 @@ class OverviewContainer extends Component {
 
     renderTags = ({ shouldDisplayTagPopup, url, tags }, index) =>
         shouldDisplayTagPopup ? (
-            <TagsContainer
+            <IndexDropdown
                 url={url}
                 onFilterAdd={this.props.addTag(index)}
                 onFilterDel={this.props.delTag(index)}
@@ -99,7 +99,7 @@ class OverviewContainer extends Component {
         const { shouldDisplayTagFilterPopup } = this.props
 
         return shouldDisplayTagFilterPopup ? (
-            <TagsContainer
+            <IndexDropdown
                 tag
                 setTagDivRef={this.setTagDivRef}
                 onFilterAdd={this.props.addTagFilter}
@@ -113,7 +113,7 @@ class OverviewContainer extends Component {
         const { shouldDisplayDomainFilterPopup } = this.props
 
         return shouldDisplayDomainFilterPopup ? (
-            <TagsContainer
+            <IndexDropdown
                 domain
                 setTagDivRef={this.setTagDivRef}
                 onFilterAdd={this.props.addDomainFilter}

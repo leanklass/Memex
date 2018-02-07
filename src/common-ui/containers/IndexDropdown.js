@@ -5,9 +5,13 @@ import noop from 'lodash/fp/noop'
 
 import { updateLastActive } from 'src/analytics'
 import { remoteFunction } from 'src/util/webextensionRPC'
-import { Tags, NewTagRow, TagRow } from '../components'
+import {
+    IndexDropdown,
+    IndexDropdownNewRow,
+    IndexDropdownRow,
+} from '../components'
 
-class TagsContainer extends Component {
+class IndexDropdownContainer extends Component {
     static propTypes = {
         // The URL to use for dis/associating new tags with
         url: PropTypes.string,
@@ -281,12 +285,16 @@ class TagsContainer extends Component {
         const tags = this.getDisplayTags()
 
         const tagOptions = tags.map((tag, i) => (
-            <TagRow {...tag} key={i} onClick={this.handleTagSelection(i)} />
+            <IndexDropdownRow
+                {...tag}
+                key={i}
+                onClick={this.handleTagSelection(i)}
+            />
         ))
 
         if (this.canCreateTag() && (this.props.overview || this.props.popup)) {
             tagOptions.push(
-                <NewTagRow
+                <IndexDropdownNewRow
                     key="+"
                     value={this.state.searchVal}
                     onClick={this.addTag}
@@ -302,7 +310,7 @@ class TagsContainer extends Component {
 
     render() {
         return (
-            <Tags
+            <IndexDropdown
                 onTagSearchChange={this.handleSearchChange}
                 onTagSearchKeyDown={this.handleSearchKeyDown}
                 setInputRef={this.setInputRef}
@@ -311,9 +319,9 @@ class TagsContainer extends Component {
                 {...this.props}
             >
                 {this.renderTags()}
-            </Tags>
+            </IndexDropdown>
         )
     }
 }
 
-export default TagsContainer
+export default IndexDropdownContainer
