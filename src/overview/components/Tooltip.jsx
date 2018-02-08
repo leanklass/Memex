@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 import localStyles from './Tooltip.css'
+import tooltips from './tooltips'
 
 const mainTooltipContainer = showTooltip =>
     classNames({
@@ -13,7 +14,7 @@ const mainTooltipContainer = showTooltip =>
 const Tooltip = ({
     showTooltip,
     toggleShowTooltip,
-    tooltip,
+    tooltipIndex,
     onClickRefreshTooltip,
 }) => (
     <div className={mainTooltipContainer(showTooltip)}>
@@ -22,6 +23,7 @@ const Tooltip = ({
                 <div
                     className={localStyles.refreshIcon}
                     onClick={onClickRefreshTooltip}
+                    title="Click so new new tip"
                 />
             )}
             <div onClick={toggleShowTooltip}>
@@ -30,10 +32,14 @@ const Tooltip = ({
         </div>
         {showTooltip && (
             <div className={localStyles.tooltipText}>
-                <div className={localStyles.tooltipTitle}>{tooltip.title}</div>
+                <div className={localStyles.tooltipTitle}>
+                    {tooltips[tooltipIndex].title}
+                </div>
                 <div
                     className={localStyles.tooltipDesc}
-                    dangerouslySetInnerHTML={{ __html: tooltip.description }}
+                    dangerouslySetInnerHTML={{
+                        __html: tooltips[tooltipIndex].description,
+                    }}
                 />
             </div>
         )}
@@ -43,7 +49,7 @@ const Tooltip = ({
 Tooltip.propTypes = {
     showTooltip: PropTypes.bool.isRequired,
     toggleShowTooltip: PropTypes.func.isRequired,
-    tooltip: PropTypes.object.isRequired,
+    tooltipIndex: PropTypes.number.isRequired,
     onClickRefreshTooltip: PropTypes.func.isRequired,
 }
 

@@ -22,7 +22,7 @@ const Overview = props => (
         <Tooltip
             showTooltip={props.showTooltip}
             toggleShowTooltip={props.toggleShowTooltip}
-            tooltip={props.tooltip}
+            tooltipIndex={props.tooltipIndex}
             onClickRefreshTooltip={props.onClickRefreshTooltip}
         />
         <ShareButtons />
@@ -75,7 +75,7 @@ Overview.propTypes = {
     domainFilterPills: PropTypes.node,
     showTooltip: PropTypes.bool.isRequired,
     toggleShowTooltip: PropTypes.func.isRequired,
-    tooltip: PropTypes.object.isRequired,
+    tooltipIndex: PropTypes.number.isRequired,
     onClickRefreshTooltip: PropTypes.func.isRequired,
 }
 

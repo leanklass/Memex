@@ -139,6 +139,8 @@ export const search = ({ overwrite } = { overwrite: false }) => async (
 
     dispatch(setLoading(true))
 
+    dispatch(tooltipIndex())
+
     // Overwrite of results should always reset the current page before searching
     if (overwrite) {
         dispatch(resetPage())
@@ -156,12 +158,6 @@ export const search = ({ overwrite } = { overwrite: false }) => async (
         domains: selectors.filterDomains(state),
         limit: constants.PAGE_SIZE,
         skip: selectors.resultsSkip(state),
-    }
-
-    // When we are loading the page and the in the query we can take many values so we are
-    // not inserting in the epic so the port should be there
-    if (!port) {
-        dispatch(init())
     }
 
     // Tell background script to search

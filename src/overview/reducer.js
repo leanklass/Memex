@@ -3,6 +3,7 @@ import remove from 'lodash/fp/remove'
 import { createReducer } from 'redux-act'
 
 import * as actions from './actions'
+import { tooltipsSize } from './components/tooltips'
 
 const defaultState = {
     searchCount: 0,
@@ -337,7 +338,10 @@ export default createReducer(
             ...state,
             showTooltip: !state.showTooltip,
         }),
-        [actions.tooltipIndex]: payloadReducer('tooltipIndex'),
+        [actions.tooltipIndex]: state => ({
+            ...state,
+            tooltipIndex: Math.floor(Math.random() * tooltipsSize),
+        }),
     },
     defaultState,
 )
