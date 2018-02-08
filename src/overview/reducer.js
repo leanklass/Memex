@@ -31,6 +31,8 @@ const defaultState = {
     filterPopup: '',
     filterTags: [],
     filterDomains: [],
+    showTooltip: false,
+    tooltipIndex: 0,
 }
 
 function setQuery(state, query) {
@@ -331,6 +333,11 @@ export default createReducer(
         [actions.toggleDomainFilter]: toggleFilter('filterDomains'),
         [actions.setTagFilters]: setTagFilters,
         [actions.setDomainFilters]: setDomainFilters,
+        [actions.showTooltip]: state => ({
+            ...state,
+            showTooltip: !state.showTooltip,
+        }),
+        [actions.tooltipIndex]: payloadReducer('tooltipIndex'),
     },
     defaultState,
 )

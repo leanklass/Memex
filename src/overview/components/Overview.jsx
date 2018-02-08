@@ -8,6 +8,7 @@ import Header from './Header'
 import styles from './Overview.css'
 import Filters from './Filters'
 import ShareButtons from './ShareButtons'
+import Tooltip from './Tooltip'
 
 const showFilterClass = ({ showFilter }) =>
     classNames({
@@ -18,6 +19,12 @@ const showFilterClass = ({ showFilter }) =>
 const Overview = props => (
     <Wrapper>
         <Header {...props} />
+        <Tooltip
+            showTooltip={props.showTooltip}
+            toggleShowTooltip={props.toggleShowTooltip}
+            tooltip={props.tooltip}
+            onClickRefreshTooltip={props.onClickRefreshTooltip}
+        />
         <ShareButtons />
 
         <div className={showFilterClass(props)}>
@@ -66,6 +73,10 @@ Overview.propTypes = {
     setTagDomainButtonRef: PropTypes.func.isRequired,
     tagFilterPills: PropTypes.node,
     domainFilterPills: PropTypes.node,
+    showTooltip: PropTypes.bool.isRequired,
+    toggleShowTooltip: PropTypes.func.isRequired,
+    tooltip: PropTypes.object.isRequired,
+    onClickRefreshTooltip: PropTypes.func.isRequired,
 }
 
 export default Overview

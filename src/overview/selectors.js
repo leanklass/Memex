@@ -210,3 +210,6 @@ export const shouldDisplayTagFilterPopup = createSelector(
     filterPopup,
     filterPopup => filterPopup === 'tag',
 )
+
+export const showTooltip = state => overview(state).showTooltip
+export const tooltipIndex = state => overview(state).tooltipIndex

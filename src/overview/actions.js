@@ -56,6 +56,9 @@ export const toggleDomainFilter = createAction('overview/toggleDomainFilter')
 export const setTagFilters = createAction('overview/setTagFilters')
 export const setDomainFilters = createAction('overview/setDomainFilters')
 
+export const showTooltip = createAction('overview/showTooltip')
+export const tooltipIndex = createAction('overview/tooltipIndex')
+
 const deleteDocsByUrl = remoteFunction('deleteDocsByUrl')
 const createBookmarkByUrl = remoteFunction('createBookmarkByUrl')
 const removeBookmarkByUrl = remoteFunction('removeBookmarkByUrl')

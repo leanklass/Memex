@@ -19,6 +19,7 @@ import TagPill from './components/TagPill'
 import FilterPill from './components/FilterPill'
 import ExpandButton from './components/ExpandButton'
 import Onboarding, { selectors as onboarding } from './onboarding'
+import tooltips from './components/tooltips'
 
 class OverviewContainer extends Component {
     static propTypes = {
@@ -54,6 +55,20 @@ class OverviewContainer extends Component {
         shouldDisplayDomainFilterPopup: PropTypes.bool.isRequired,
         shouldDisplayTagFilterPopup: PropTypes.bool.isRequired,
         showOnboarding: PropTypes.bool.isRequired,
+    }
+
+    constructor(props) {
+        super(props)
+
+        this.changeTooltip = () =>
+            this.setState(state => ({
+                ...state,
+                tooltip: tooltips[Math.floor(Math.random() * tooltips.length)],
+            }))
+    }
+
+    state = {
+        tooltip: tooltips[Math.floor(Math.random() * tooltips.length)],
     }
 
     componentDidMount() {
@@ -317,6 +332,8 @@ class OverviewContainer extends Component {
                     )}
                     onQuerySearchKeyDown={this.handleSearchEnter}
                     isSearchDisabled={this.props.showOnboarding}
+                    tooltip={this.state.tooltip}
+                    onClickRefreshTooltip={this.changeTooltip}
                 >
                     {this.renderResults()}
                 </Overview>
@@ -349,6 +366,7 @@ const mapStateToProps = state => ({
     ),
     shouldDisplayTagFilterPopup: selectors.shouldDisplayTagFilterPopup(state),
     showOnboarding: onboarding.isVisible(state),
+    showTooltip: selectors.showTooltip(state),
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -369,6 +387,7 @@ const mapDispatchToProps = dispatch => ({
             delTagFilter: actions.delTagFilter,
             addDomainFilter: actions.addDomainFilter,
             delDomainFilter: actions.delDomainFilter,
+            toggleShowTooltip: actions.showTooltip,
         },
         dispatch,
     ),
